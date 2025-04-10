@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LOOK OUT FOR OUR NEXT POST</title>
+  <style>
+    body {
+      margin: 0;
+      background-image: url('night-background.png'); /* Updated image name */
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      overflow: hidden;
+      text-align: center;
+      color: #ff6347;
+    }
+    h1 {
+      font-size: 3rem;
+      z-index: 1;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>LOOK OUT FOR OUR NEXT POST 🎉</h1>
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- Audio Elements -->
+  <audio id="cheerAudio" src="cheer.mp3" preload="auto"></audio>
+
+  <script>
+    const canvas = document.getElementById('confettiCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let confetti = [];
+
+    function randomColor() {
+      const colors = ['#ff4da6', '#ff66b2', '#ff99cc', '#cc3399', '#ffb3d9'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    function createConfetti() {
+      for (let i = 0; i < 150; i++) {
+        confetti.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * 50,
+          color: randomColor(),
+          tilt: Math.floor(Math.random() * 10) - 5,
+          tiltAngleIncremental: Math.random() * 0.07 + 0.05,
+          tiltAngle: 0
+        });
+      }
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confetti.forEach((c, i) => {
+        ctx.beginPath();
+        ctx.lineWidth = c.r / 2;
+        ctx.strokeStyle = c.color;
+        ctx.moveTo(c.x + c.tilt + c.r / 4, c.y);
+        ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 4);
+        ctx.stroke();
+      });
+
+      updateConfetti();
+    }
+
+    function updateConfetti() {
+      confetti.forEach((c, i) => {
+        c.tiltAngle += c.tiltAngleIncremental;
+        c.y += (Math.cos(c.d) + 3 + c.r / 2) / 2;
+        c.x += Math.sin(c.d);
+        c.tilt = Math.sin(c.tiltAngle - i / 3) * 15;
+
+        if (c.y > canvas.height) {
+          c.y = -10;
+          c.x = Math.random() * canvas.width;
+        }
+      });
+    }
+
+    function animateConfetti() {
+      drawConfetti();
+      requestAnimationFrame(animateConfetti);
+    }
+
+    createConfetti();
+    animateConfetti();
+
+    cheerAudio.play();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Win Prizes and CASH!</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-image: url('night-background.png'); /* Updated image name */
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      color: #ff6347; /* Adjusted text color for readability on pixel art background */
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+    .button {
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 12px;
+      margin: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    #yesBtn {
+      background-color: #ff6347;
+      color: white;
+    }
+    #noBtn {
+      background-color: #ccc;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Do you want to stand a chance to win prizes and CASH?</h1>
+  <button id="yesBtn" class="button">YES</button>
+  <button id="noBtn" class="button">NO</button>
+
+  <!-- Audio Elements -->
+  <audio id="cheerAudio" src="cheer.mp3" preload="auto"></audio>
+  <audio id="booAudio" src="boo.mp3" preload="auto"></audio>
+  <audio id="oooAudio" src="ooo.mp3" preload="auto"></audio>
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const cheerAudio = document.getElementById('cheerAudio');
+    const booAudio = document.getElementById('booAudio');
+    const oooAudio = document.getElementById('oooAudio');
+    let scaleFactor = 1;
+
+    noBtn.addEventListener('click', () => {
+      scaleFactor += 0.2;
+      yesBtn.style.transform = `scale(${scaleFactor})`;
+      booAudio.currentTime = 0;
+      booAudio.play();
+    });
+
+    yesBtn.addEventListener('click', () => {
+      cheerAudio.play();
+      setTimeout(() => {
+        window.location.href = './nextPost.html';
+      }, 1200); // Delay to let cheer play
+    });
+
+    yesBtn.addEventListener('mouseover', () => {
+      oooAudio.play();
+    });
+
+    noBtn.addEventListener('mouseover', () => {
+      oooAudio.play();
+    });
+  </script>
+</body>
+</html>
