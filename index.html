@@ -1,82 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Win Prizes and CASH!</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Do you want to stand a chance to win prizes and CASH?</title>
   <style>
     body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background-image: url('night-background.png'); /* Updated image name */
+      margin: 0;
+      background: url('night-background.png') no-repeat center center fixed;
       background-size: cover;
-      font-family: 'Arial', sans-serif;
-      text-align: center;
-      color: #ff6347; /* Adjusted text color for readability on pixel art background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      overflow: hidden;
     }
     h1 {
       font-size: 2.5rem;
-      margin-bottom: 2rem;
+      color: #fff;
+      z-index: 1;
+      text-align: center;
     }
     .button {
-      padding: 1rem 2rem;
+      padding: 15px 25px;
       font-size: 1.5rem;
+      color: #fff;
+      background-color: #ff4d88;
       border: none;
-      border-radius: 12px;
-      margin: 1rem;
+      border-radius: 5px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: transform 0.2s;
     }
-    #yesBtn {
-      background-color: #ff6347;
-      color: white;
-    }
-    #noBtn {
-      background-color: #ccc;
-      color: #333;
+    .button:hover {
+      background-color: #ff3366;
     }
   </style>
 </head>
 <body>
   <h1>Do you want to stand a chance to win prizes and CASH?</h1>
-  <button id="yesBtn" class="button">YES</button>
-  <button id="noBtn" class="button">NO</button>
+  <div>
+    <button class="button" id="yesButton" onclick="location.href='nextPost.html'">YES</button>
+    <button class="button" id="noButton">NO</button>
+  </div>
 
-  <!-- Audio Elements -->
-  <audio id="cheerAudio" src="cheer.mp3" preload="auto"></audio>
-  <audio id="booAudio" src="boo.mp3" preload="auto"></audio>
-  <audio id="oooAudio" src="ooo.mp3" preload="auto"></audio>
   <script>
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const cheerAudio = document.getElementById('cheerAudio');
-    const booAudio = document.getElementById('booAudio');
-    const oooAudio = document.getElementById('oooAudio');
-    let scaleFactor = 1;
-
-    noBtn.addEventListener('click', () => {
-      scaleFactor += 0.2;
-      yesBtn.style.transform = `scale(${scaleFactor})`;
-      booAudio.currentTime = 0;
-      booAudio.play();
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    
+    let scale = 1;
+    noButton.addEventListener('click', () => {
+      scale += 0.1;  // Increase size of YES button with each NO click
+      yesButton.style.transform = `scale(${scale})`;
+      // Optionally, you can add a sound effect for the "NO" button click here
+      const booSound = new Audio('boo.mp3');
+      booSound.play();
     });
 
-    yesBtn.addEventListener('click', () => {
-      cheerAudio.play();
-      setTimeout(() => {
-        window.location.href = './nextPost.html';
-      }, 1200); // Delay to let cheer play
+    yesButton.addEventListener('mouseover', () => {
+      // Play "OOO" sound when hovering over the YES button
+      const oooSound = new Audio('ooo.mp3');
+      oooSound.play();
     });
 
-    yesBtn.addEventListener('mouseover', () => {
-      oooAudio.play();
-    });
-
-    noBtn.addEventListener('mouseover', () => {
-      oooAudio.play();
+    noButton.addEventListener('mouseover', () => {
+      // Play "OOO" sound when hovering over the NO button
+      const oooSound = new Audio('ooo.mp3');
+      oooSound.play();
     });
   </script>
 </body>
