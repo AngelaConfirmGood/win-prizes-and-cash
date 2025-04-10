@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LOOK OUT FOR OUR NEXT POST</title>
   <style>
     body {
       margin: 0;
-      background-image: url('night-background.png'); /* Updated image name */
-      background-size: cover;
+      background-color: #000;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       font-family: 'Comic Sans MS', cursive, sans-serif;
+      color: #fff;
       overflow: hidden;
-      text-align: center;
-      color: #ff6347;
     }
     h1 {
       font-size: 3rem;
-      z-index: 1;
+      color: #ff4d88;
+      text-align: center;
     }
     canvas {
       position: absolute;
@@ -31,11 +30,8 @@
   </style>
 </head>
 <body>
-  <h1>LOOK OUT FOR OUR NEXT POST 🎉</h1>
+  <h1>LOOK OUT FOR OUR NEXT POST! 🎉</h1>
   <canvas id="confettiCanvas"></canvas>
-
-  <!-- Audio Elements -->
-  <audio id="cheerAudio" src="cheer.mp3" preload="auto"></audio>
 
   <script>
     const canvas = document.getElementById('confettiCanvas');
@@ -95,18 +91,3 @@
 
     function animateConfetti() {
       drawConfetti();
-      requestAnimationFrame(animateConfetti);
-    }
-
-    createConfetti();
-    animateConfetti();
-
-    cheerAudio.play();
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-  </script>
-</body>
-</html>
